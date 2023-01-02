@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<!--Animated Lower Thirds v1.6-->
-		<!--Author: NoeAL-->
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-		<title>Lower Thirds Control Panel</title>
-		<link rel="stylesheet" href="../common/css/style-control_panel.css">
-		<link rel="stylesheet" href="../common/css/cp-icons.css">
-		<script src="../common/js/jquery.js"></script>
-		<script src="../common/js/jscolor.js"></script>
-		<script src="../common/js/hotkeys.js"></script>
-		<script src="../common/js/jquery-ui.js"></script>
-	</head>
-	<body class="lower-thirds-panel panel">
-		<div id="alt-panel" class="static-panel-top" style="margin-bottom: 0px">
+  <head>
+    <!--Animated Lower Thirds v1.6-->
+    <!--Author: NoeAL-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>Lower Thirds Control Panel</title>
+    <link rel="stylesheet" href="../common/css/style-control_panel.css">
+    <link rel="stylesheet" href="../common/css/cp-icons.css">
+    <script src="../common/js/jquery.js"></script>
+    <script src="../common/js/jscolor.js"></script>
+    <script src="../common/js/hotkeys.js"></script>
+    <script src="../common/js/jquery-ui.js"></script>
+  </head>
+  <body class="lower-thirds-panel panel">
+    <div id="alt-panel" class="static-panel-top" style="margin-bottom: 0px">
 			
 			<div id="alt-main-config-content"> <!--// Main Settings//-->
 				<label class="switch">
@@ -187,54 +187,49 @@
 				</div>
 			</div>
 
-		</div>
+    </div>
 
-		<script>
-			/**
-			 *
-			 * DEFAULT VALUES
-			 *
-			 */
-			const default_style = 1;
-			const default_size = 24;
-			const default_margin_h = 4;
-			const default_margin_v = 4;
+    <script>
+       // DEFAULT VALUES
+      const default_style = 1;
+      const default_size = 24;
+      const default_margin_h = 4;
+      const default_margin_v = 4;
+      const default_inverse_ratio = 9;
+      const default_line_spacing = 0;
 
-			const default_inverse_ratio = 9;
-			const default_line_spacing = 0;
+      const default_logo = true;
+      const default_logo_size = 0;
+      const default_logo_size_em = 3.5;
+      const default_shadow = false;
+      const default_shadow_amount = 5;
+      const default_shadow_amount_em = 0.5;
+      const default_background = true;
+      const default_style_color_1 = '#D54141';
+      const default_style_color_2 = '#222222';
 
-			const default_logo = true;
-			const default_logo_size = 0;
-			const default_logo_size_em = 3.5;
-			const default_shadow = false;
-			const default_shadow_amount = 5;
-			const default_shadow_amount_em = 0.5;
-			const default_background = true;
-			const default_style_color_1 = '#D54141';
-			const default_style_color_2 = '#222222';
+      const default_corners = 0;
+      const default_border_thickness = false;
+      const default_border_thickness_amount = 0;
+      const default_border_color = false;
+      const default_style_color_3 = '#D54141';
+      const default_style_color_4 = '#222222';
 
-			const default_corners = 0;
-			const default_border_thickness = false;
-			const default_border_thickness_amount = 0;
-			const default_border_color = false;
-			const default_style_color_3 = '#D54141';
-			const default_style_color_4 = '#222222';
+      const default_name_transform = true;
+      const default_name_weight = true;
+      const default_name_style = false;
+      const default_name_color = '#F2F2F2';
 
-			const default_name_transform = true;
-			const default_name_weight = true;
-			const default_name_style = false;
-			const default_name_color = '#F2F2F2';
+      const default_info_transform = false;
+      const default_info_weight = false;
+      const default_info_style = false;
+      const default_info_color = '#8A8A8A';
 
-			const default_info_transform = false;
-			const default_info_weight = false;
-			const default_info_style = false;
-			const default_info_color = '#8A8A8A';
-
-        //add the 4 default lower-thirds controls
-        addControlHTML(1);
-        addControlHTML(2);
-        addControlHTML(3);
-        addControlHTML(4);
+      //add the 4 default lower-thirds controls
+      addControlHTML(1);
+      addControlHTML(2);
+      addControlHTML(3);
+      addControlHTML(4);
 
 			function loadDefaultValues() {
 				$("[id^=alt-][id$=-style]").val(default_style);
@@ -1961,14 +1956,14 @@
 					function_send_font();
 				} else {
 
-					alt_1_active_time_monitor = received_data.activeTime1_to_send;
-					alt_1_inactive_time_monitor = received_data.inactiveTime1_to_send;
-					alt_2_active_time_monitor = received_data.activeTime2_to_send;
-					alt_2_inactive_time_monitor = received_data.inactiveTime2_to_send;
-					alt_3_active_time_monitor = received_data.activeTime3_to_send;
-					alt_3_inactive_time_monitor = received_data.inactiveTime3_to_send;
-					alt_4_active_time_monitor = received_data.activeTime4_to_send;
-					alt_4_inactive_time_monitor = received_data.inactiveTime4_to_send;
+					alt_1_active_time_monitor = received_data[1].activeTime_to_send;
+					alt_1_inactive_time_monitor = received_data[1].inactiveTime_to_send;
+					alt_2_active_time_monitor = received_data[2].activeTime_to_send;
+					alt_2_inactive_time_monitor = received_data[2].inactiveTime_to_send;
+					alt_3_active_time_monitor = received_data[3].activeTime_to_send;
+					alt_3_inactive_time_monitor = received_data[3].inactiveTime_to_send;
+					alt_4_active_time_monitor = received_data[4].activeTime_to_send;
+					alt_4_inactive_time_monitor = received_data[4].inactiveTime_to_send;
 
 					document.getElementById("alt-1-active-time-monitor").innerHTML = alt_1_active_time_monitor;
 					document.getElementById("alt-1-inactive-time-monitor").innerHTML = alt_1_inactive_time_monitor;
@@ -1979,10 +1974,10 @@
 					document.getElementById("alt-4-active-time-monitor").innerHTML = alt_4_active_time_monitor
 					document.getElementById("alt-4-inactive-time-monitor").innerHTML = alt_4_inactive_time_monitor;
 
-					alt_1_turnoff = (received_data.alt_1_turnoff);
-					alt_2_turnoff = (received_data.alt_2_turnoff);
-					alt_3_turnoff = (received_data.alt_3_turnoff);
-					alt_4_turnoff = (received_data.alt_4_turnoff);
+					alt_1_turnoff = (received_data[1].alt_turnoff);
+					alt_2_turnoff = (received_data[2].alt_turnoff);
+					alt_3_turnoff = (received_data[3].alt_turnoff);
+					alt_4_turnoff = (received_data[4].alt_turnoff);
 
 
 					if (alt_1_turnoff && $("#lower-thirds-switch1").is(':checked')) {
@@ -2655,7 +2650,50 @@
 					$("#alt-4-custom-times").children(".icon-btn").removeClass("active");
 				}
 
-				bc.postMessage({global_animation_time, global_active_time, global_inactive_time, alt_1_switch, alt_1_style, alt_1_name, alt_1_info, alt_1_name_size, alt_1_info_size , alt_1_name_transform, alt_1_info_transform, alt_1_name_weight, alt_1_name_style, alt_1_info_weight, alt_1_info_style, alt_1_name_color, alt_1_info_color, alt_1_style_color_1, alt_1_style_color_2, alt_1_logo_switch, alt_1_background_switch, alt_1_shadows, alt_1_align, alt_1_size, alt_1_margin_h, alt_1_margin_v, alt_1_line_spacing, alt_1_font, alt_2_switch, alt_2_style, alt_2_name, alt_2_info, alt_2_name_size, alt_2_info_size , alt_2_name_transform, alt_2_info_transform, alt_2_name_weight, alt_2_name_style, alt_2_info_weight, alt_2_info_style, alt_2_name_color, alt_2_info_color, alt_2_style_color_1, alt_2_style_color_2, alt_2_logo_switch, alt_2_background_switch, alt_2_shadows, alt_2_align, alt_2_size, alt_2_margin_h, alt_2_margin_v, alt_2_line_spacing, alt_2_font, alt_3_switch, alt_3_style, alt_3_name, alt_3_info, alt_3_name_size, alt_3_info_size , alt_3_name_transform, alt_3_info_transform, alt_3_name_weight, alt_3_name_style, alt_3_info_weight, alt_3_info_style, alt_3_name_color, alt_3_info_color, alt_3_style_color_1, alt_3_style_color_2, alt_3_logo_switch, alt_3_background_switch, alt_3_shadows, alt_3_align, alt_3_size, alt_3_margin_h, alt_3_margin_v, alt_3_line_spacing, alt_3_font, alt_4_switch, alt_4_style, alt_4_name, alt_4_info, alt_4_name_size, alt_4_info_size , alt_4_name_transform, alt_4_info_transform, alt_4_name_weight, alt_4_name_style, alt_4_info_weight, alt_4_info_style, alt_4_name_color, alt_4_info_color, alt_4_style_color_1, alt_4_style_color_2, alt_4_logo_switch, alt_4_background_switch, alt_4_shadows, alt_4_align, alt_4_size, alt_4_margin_h, alt_4_margin_v, alt_4_line_spacing, alt_4_font, alt_1_animation_time, alt_1_active_time, alt_1_inactive_time, alt_2_animation_time, alt_2_active_time, alt_2_inactive_time, alt_3_animation_time, alt_3_active_time, alt_3_inactive_time, alt_4_animation_time, alt_4_active_time, alt_4_inactive_time, alt_1_logo_image, alt_2_logo_image, alt_3_logo_image, alt_4_logo_image, global_oneshot, alt_1_oneshot, alt_2_oneshot, alt_3_oneshot, alt_4_oneshot, alt_1_logo_size, alt_1_shadow_amount, alt_1_corners, alt_1_border_switch, alt_1_border_thickness_amount, alt_1_style_color_3, alt_1_style_color_4, alt_2_logo_size, alt_2_shadow_amount, alt_2_corners, alt_2_border_switch, alt_2_border_thickness_amount, alt_2_style_color_3, alt_2_style_color_4, alt_3_logo_size, alt_3_shadow_amount, alt_3_corners, alt_3_border_switch, alt_3_border_thickness_amount, alt_3_style_color_3, alt_3_style_color_4, alt_4_logo_size, alt_4_shadow_amount, alt_4_corners, alt_4_border_switch, alt_4_border_thickness_amount, alt_4_style_color_3, alt_4_style_color_4, alt_1_preview, alt_2_preview, alt_3_preview, alt_4_preview});
+                                tempArray = []; //temporary measure to move to a new data format.
+                                tempArray[1] = {
+                                  alt_switch: alt_1_switch, alt_style: alt_1_style, alt_name: alt_1_name, alt_info: alt_1_info, alt_name_size: alt_1_name_size, alt_info_size: alt_1_info_size,
+                                  alt_name_transform: alt_1_name_transform, alt_info_transform: alt_1_info_transform, alt_name_weight: alt_1_name_weight, alt_name_style: alt_1_name_style,
+                                  alt_info_weight: alt_1_info_weight, alt_info_style: alt_1_info_style, alt_name_color: alt_1_name_color, alt_info_color: alt_1_info_color, alt_style_color: alt_1_style_color_1,
+                                  alt_style_color:  alt_1_style_color_2, alt_logo_switch: alt_1_logo_switch, alt_background_switch: alt_1_background_switch, alt_shadows: alt_1_shadows,
+                                  alt_align: alt_1_align, alt_size: alt_1_size, alt_margin_h: alt_1_margin_h, alt_margin_v: alt_1_margin_v, alt_line_spacing: alt_1_line_spacing, alt_font: alt_1_font,
+                                  alt_animation_time: alt_1_animation_time, alt_active_time: alt_1_active_time, alt_inactive_time: alt_1_inactive_time, alt_logo_image: alt_1_logo_image,
+                                  alt_oneshot: alt_1_oneshot, alt_logo_size: alt_1_logo_size, alt_shadow_amount: alt_1_shadow_amount, alt_corners: alt_1_corners, alt_border_switch: alt_1_border_switch,
+                                  alt_border_thickness_amount: alt_1_border_thickness_amount, alt_style_color_3: alt_1_style_color_3, alt_style_color_4: alt_1_style_color_4, alt_preview: alt_1_preview
+                                };
+                                tempArray[2] = {
+                                  alt_switch: alt_2_switch, alt_style: alt_2_style, alt_name: alt_2_name, alt_info: alt_2_info, alt_name_size: alt_2_name_size, alt_info_size: alt_2_info_size,
+                                  alt_name_transform: alt_2_name_transform, alt_info_transform: alt_2_info_transform, alt_name_weight: alt_2_name_weight, alt_name_style: alt_2_name_style,
+                                  alt_info_weight: alt_2_info_weight, alt_info_style: alt_2_info_style, alt_name_color: alt_2_name_color, alt_info_color: alt_2_info_color, alt_style_color: alt_2_style_color_1,
+                                  alt_style_color:  alt_2_style_color_2, alt_logo_switch: alt_2_logo_switch, alt_background_switch: alt_2_background_switch, alt_shadows: alt_2_shadows,
+                                  alt_align: alt_2_align, alt_size: alt_2_size, alt_margin_h: alt_2_margin_h, alt_margin_v: alt_2_margin_v, alt_line_spacing: alt_2_line_spacing, alt_font: alt_2_font,
+                                  alt_animation_time: alt_2_animation_time, alt_active_time: alt_2_active_time, alt_inactive_time: alt_2_inactive_time, alt_logo_image: alt_2_logo_image,
+                                  alt_oneshot: alt_2_oneshot, alt_logo_size: alt_2_logo_size, alt_shadow_amount: alt_2_shadow_amount, alt_corners: alt_2_corners, alt_border_switch: alt_2_border_switch,
+                                  alt_border_thickness_amount: alt_2_border_thickness_amount, alt_style_color_3: alt_2_style_color_3, alt_style_color_4: alt_2_style_color_4, alt_preview: alt_2_preview
+                                };
+                                tempArray[3] = {
+                                  alt_switch: alt_3_switch, alt_style: alt_3_style, alt_name: alt_3_name, alt_info: alt_3_info, alt_name_size: alt_3_name_size, alt_info_size: alt_3_info_size,
+                                  alt_name_transform: alt_3_name_transform, alt_info_transform: alt_3_info_transform, alt_name_weight: alt_3_name_weight, alt_name_style: alt_3_name_style,
+                                  alt_info_weight: alt_3_info_weight, alt_info_style: alt_3_info_style, alt_name_color: alt_3_name_color, alt_info_color: alt_3_info_color, alt_style_color: alt_3_style_color_1,
+                                  alt_style_color:  alt_3_style_color_2, alt_logo_switch: alt_3_logo_switch, alt_background_switch: alt_3_background_switch, alt_shadows: alt_3_shadows,
+                                  alt_align: alt_3_align, alt_size: alt_3_size, alt_margin_h: alt_3_margin_h, alt_margin_v: alt_3_margin_v, alt_line_spacing: alt_3_line_spacing, alt_font: alt_3_font,
+                                  alt_animation_time: alt_3_animation_time, alt_active_time: alt_3_active_time, alt_inactive_time: alt_3_inactive_time, alt_logo_image: alt_3_logo_image,
+                                  alt_oneshot: alt_3_oneshot, alt_logo_size: alt_3_logo_size, alt_shadow_amount: alt_3_shadow_amount, alt_corners: alt_3_corners, alt_border_switch: alt_3_border_switch,
+                                  alt_border_thickness_amount: alt_3_border_thickness_amount, alt_style_color_3: alt_3_style_color_3, alt_style_color_4: alt_3_style_color_4, alt_preview: alt_3_preview
+                                };
+                                tempArray[4] = {
+                                  alt_switch: alt_4_switch, alt_style: alt_4_style, alt_name: alt_4_name, alt_info: alt_4_info, alt_name_size: alt_4_name_size, alt_info_size: alt_4_info_size,
+                                  alt_name_transform: alt_4_name_transform, alt_info_transform: alt_4_info_transform, alt_name_weight: alt_4_name_weight, alt_name_style: alt_4_name_style,
+                                  alt_info_weight: alt_4_info_weight, alt_info_style: alt_4_info_style, alt_name_color: alt_4_name_color, alt_info_color: alt_4_info_color, alt_style_color: alt_4_style_color_1,
+                                  alt_style_color:  alt_4_style_color_2, alt_logo_switch: alt_4_logo_switch, alt_background_switch: alt_4_background_switch, alt_shadows: alt_4_shadows,
+                                  alt_align: alt_4_align, alt_size: alt_4_size, alt_margin_h: alt_4_margin_h, alt_margin_v: alt_4_margin_v, alt_line_spacing: alt_4_line_spacing, alt_font: alt_4_font,
+                                  alt_animation_time: alt_4_animation_time, alt_active_time: alt_4_active_time, alt_inactive_time: alt_4_inactive_time, alt_logo_image: alt_4_logo_image,
+                                  alt_oneshot: alt_4_oneshot, alt_logo_size: alt_4_logo_size, alt_shadow_amount: alt_4_shadow_amount, alt_corners: alt_4_corners, alt_border_switch: alt_4_border_switch,
+                                  alt_border_thickness_amount: alt_4_border_thickness_amount, alt_style_color_3: alt_4_style_color_3, alt_style_color_4: alt_4_style_color_4, alt_preview: alt_4_preview
+                                };
+
+
+				bc.postMessage({global_animation_time, global_active_time, global_inactive_time, global_oneshot, tempArray});
 			}
 
 			//Send New Fonts to source
