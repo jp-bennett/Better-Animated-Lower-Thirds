@@ -1,85 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-  	<!--Animated Lower Thirds v1.6-->
+    <!--Better Animated Lower Thirds v1.0-->
     <meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <title>Lower thirds Source</title>
-	<link rel="stylesheet" href="../common/css/style-source.css">
-	<script src="../common/js/jquery.js"></script>
-
- </head>
+    <link rel="stylesheet" href="../common/css/style-source.css">
+    <script src="../common/js/jquery.js"></script>
+  </head>
   <body class="browser-source lower-thirds">
-		<!--Lower third 1-->
-		<div id="lower-third-1" class="alt left style-1 hide-anim">
-			<div id="alt-1-logo" class="logo no-logo">
-				<img id="alt-1-logo-image" src="//:0" />
-			</div>
-			<div class="graph-1"></div>
-			<div class="text-content">
-				<div class="text-mask">
-					<div id="alt-1-name"></div>
-				</div>
-				<div class="text-mask">
-					<div id="alt-1-info"></div>
-				</div>
-			</div>
-			<div class="graph-2"></div>
-		</div>
 
-		<!--Lower third 2-->
-		<div id="lower-third-2" class="alt left style-1 hide-anim">
-			<div id="alt-2-logo" class="logo no-logo">
-				<img id="alt-2-logo-image" src="//:0" />
-			</div>
-			<div class="graph-1"></div>
-			<div class="text-content">
-				<div class="text-mask">
-					<div id="alt-2-name"></div>
-				</div>
-				<div class="text-mask">
-					<div id="alt-2-info"></div>
-				</div>
-			</div>
-			<div class="graph-2"></div>
-		</div>
+    <script type="text/javascript">
 
-		<!--Lower third 3-->
-		<div id="lower-third-3" class="alt left style-1 hide-anim">
-			<div id="alt-3-logo" class="logo no-logo">
-				<img id="alt-3-logo-image" src="//:0" />
-			</div>
-			<div class="graph-1"></div>
-			<div class="text-content">
-				<div class="text-mask">
-					<div id="alt-3-name"></div>
-				</div>
-				<div class="text-mask">
-					<div id="alt-3-info"></div>
-				</div>
-			</div>
-			<div class="graph-2"></div>
-		</div>
+      const mode = getUrlParameter('mode');
 
-		<!--Lower third 4-->
-		<div id="lower-third-4" class="alt left style-1 hide-anim">
-			<div id="alt-4-logo" class="logo no-logo">
-				<img id="alt-4-logo-image" src="//:0" />
-			</div>
-			<div class="graph-1"></div>
-			<div class="text-content">
-				<div class="text-mask">
-					<div id="alt-4-name"></div>
-				</div>
-				<div class="text-mask">
-					<div id="alt-4-info"></div>
-				</div>
-			</div>
-			<div class="graph-2"></div>
-		</div>
+      //Check mode and change de channel to receive switches orders or preview orders
+      if (mode == "preview") {
+        document.body.classList.add('preview');
+      }
 
-	 <script type="text/javascript">
+      const bcp = new BroadcastChannel('obs-lower-thirds-channel'); //Receives from the source
+      const bcr = new BroadcastChannel('obs-lower-thirds-channel2'); //Send to Control Panel
+      const bcf = new BroadcastChannel('obs-lower-thirds-fonts');
+
+      let alt_1_logo_image_old;
+      let alt_2_logo_image_old;
+      let alt_3_logo_image_old;
+      let alt_4_logo_image_old;
+
+      let alt_1_align_old = "left";
+      let alt_2_align_old = "left";
+      let alt_3_align_old = "left";
+      let alt_4_align_old = "left";
+
+      let alt_1_style_old;
+      let alt_2_style_old;
+      let alt_3_style_old;
+      let alt_4_style_old;
+
+      let canIn1 = false;
+      let canIn2 = false;
+      let canIn3 = false;
+      let canIn4 = false;
+
+      let c1 = 0;
+      let d1 = 0;
+      let t1;
+      let s1;
+
+      let c2 = 0;
+      let d2 = 0;
+      let t2;
+      let s2;
+
+      let c3 = 0;
+      let d3 = 0;
+      let t3;
+      let s3;
+
+      let c4 = 0;
+      let d4 = 0;
+      let t4;
+      let s4;
+
+      let active1IsOn = 0;
+      let inactive1IsOn = 0;
+      let active2IsOn = 0;
+      let inactive2IsOn = 0;
+      let active3IsOn = 0;
+      let inactive3IsOn = 0;
+      let active4IsOn = 0;
+      let inactive4IsOn = 0;
+
+      let alt_1_turnoff;
+      let alt_2_turnoff;
+      let alt_3_turnoff;
+      let alt_4_turnoff;
+
+
+      //add the 4 default lower-third divs
+      addLowerThird(1);
+      addLowerThird(2);
+      addLowerThird(3);
+      addLowerThird(4);
+
+
+
+      //Add a lower third div to the browser-source
+      function addLowerThird(id) {
+        const outerDiv = document.createElement("div");
+        outerDiv.id = `lower-third-${id}`;
+        outerDiv.classList.add("alt", "left", "style-1", "hide-anim");
+
+        //logo-div = document.createElement("div");
+        //logo-div.id = `alt-${id}-logo`;
+        //logo-div.classList.add("logo", "no-logo");
+
+        outerDiv.innerHTML = `
+          <div id="alt-${id}-logo" class="logo no-logo">
+            <img id="alt-${id}-logo-image" src="//:0" />
+          </div>
+          <div class="graph-1"></div>
+          <div class="text-content">
+            <div class="text-mask">
+              <div id="alt-${id}-name"></div>
+            </div>
+            <div class="text-mask">
+              <div id="alt-${id}-info"></div>
+            </div>
+          </div>
+          <div class="graph-2"></div>
+        `;
+        document.body.appendChild(outerDiv);
+
+
+      }
 		//Check preview
 		function getUrlParameter(sParam) {
 		    let sPageURL = window.location.search.substring(1),
@@ -95,71 +131,6 @@
 		        }
 		    }
 		};
-
-		const mode = getUrlParameter('mode');
-
-		//Check mode and change de channel to receive switches orders or preview orders
-		if (mode == "preview") {
-			document.body.classList.add('preview');
-		}
-
-		const bcp = new BroadcastChannel('obs-lower-thirds-channel'); //Receives from the source
-		const bcr = new BroadcastChannel('obs-lower-thirds-channel2'); //Send to Control Panel
-		const bcf = new BroadcastChannel('obs-lower-thirds-fonts');
-
-		let alt_1_logo_image_old;
-		let alt_2_logo_image_old;
-		let alt_3_logo_image_old;
-		let alt_4_logo_image_old;
-
-		let alt_1_align_old = "left";
-		let alt_2_align_old = "left";
-		let alt_3_align_old = "left";
-		let alt_4_align_old = "left";
-
-		let alt_1_style_old;
-		let alt_2_style_old;
-		let alt_3_style_old;
-		let alt_4_style_old;
-
-		let canIn1 = false;
-		let canIn2 = false;
-		let canIn3 = false;
-		let canIn4 = false;
-
-		let c1 = 0;
-		let d1 = 0;
-		let t1;
-		let s1;
-
-		let c2 = 0;
-		let d2 = 0;
-		let t2;
-		let s2;
-
-		let c3 = 0;
-		let d3 = 0;
-		let t3;
-		let s3;
-
-		let c4 = 0;
-		let d4 = 0;
-		let t4;
-		let s4;
-
-		let active1IsOn = 0;
-		let inactive1IsOn = 0;
-		let active2IsOn = 0;
-		let inactive2IsOn = 0;
-		let active3IsOn = 0;
-		let inactive3IsOn = 0;
-		let active4IsOn = 0;
-		let inactive4IsOn = 0;
-
-		let alt_1_turnoff;
-		let alt_2_turnoff;
-		let alt_3_turnoff;
-		let alt_4_turnoff;
 
 
 		function animationIn(animation) {
