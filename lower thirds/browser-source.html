@@ -58,7 +58,7 @@
       function addLowerThird(id, array) {
         var tempDict = generateL3Dict();
         const outerDiv = document.createElement("div");
-        //tempDict.divObject = outerDiv;
+        tempDict.divId = `lower-third-${id}`;
         array[id] = tempDict;
         outerDiv.id = `lower-third-${id}`;
         outerDiv.classList.add("alt", "left", "style-1", "hide-anim");
@@ -96,15 +96,15 @@
         }
       }; //getUrlParamater
 
-      function animationIn(animation) {
-        const elementAnim = document.getElementById(animation);
+      function animationIn(targetDict) {
+        const elementAnim = document.getElementById(targetDict.divId);
         elementAnim.classList.remove("animation-out");
         void elementAnim.offsetWidth;
         elementAnim.classList.add("animation-in");
       }
 
       function animationOut(animation) {
-        const elementAnim = document.getElementById(animation);
+        const elementAnim = document.getElementById(animation.divId);
         elementAnim.classList.remove("animation-in");
         void elementAnim.offsetWidth;
         elementAnim.classList.add("animation-out");
@@ -234,12 +234,12 @@
           }
 
           //Check the switches
-          if (l3Array[i].alt_switch == "false" || l3Array[i].alt_name.length == 0 || l3Array[i].alt_info.length == 0) {
+          if (l3Array[i].alt_switch == "false" || l3Array[i].alt_name.length == 0) {
             if(l3Array[i].canIn){
               l3Array[i].canIn = false;
-              stopTimeCount(`lower-third-${i}`);
+              stopTimeCount(l3Array[i]);
             } else {
-              stopTimeCount(`lower-third-${i}`);
+              stopTimeCount(l3Array[i]);
             }
           } else {
             if(!l3Array[i].canIn){

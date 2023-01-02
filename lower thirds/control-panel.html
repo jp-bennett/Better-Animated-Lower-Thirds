@@ -190,6 +190,9 @@
     </div>
 
     <script>
+      //TODO: For me: I need a 5th l3. Even if still on, autotrigger should pop the l3. Scenes trigger memory slots?
+
+
        // DEFAULT VALUES
       const default_style = 1;
       const default_size = 24;
@@ -267,17 +270,20 @@
 			}
 
 
-			var bc = new BroadcastChannel('obs-lower-thirds-channel'); //Send to browser source
+			var bc = new BroadcastChannel('obs-lower-thirds-channel'); //end to browser source
 			var bcr = new BroadcastChannel('obs-lower-thirds-channel2'); //Receives from the source
 			var bcf = new BroadcastChannel('obs-lower-thirds-fonts'); //Send custom fonts
 					
 
-			var slotDeleted = false;
+      var slotDeleted = false;
 
-			var new_font_to_send;
+      var new_font_to_send;
 
-			var alt_1_active_time_monitor;
-			var alt_1_inactive_time_monitor;
+
+//Same story, replace this with a function that generates a new dict
+
+      var alt_1_active_time_monitor;
+      var alt_1_inactive_time_monitor;
 			var alt_2_active_time_monitor;
 			var alt_2_inactive_time_monitor;
 			var alt_3_active_time_monitor;
@@ -519,12 +525,12 @@
 
 
 			//Load the list of stored Custom Fonts in the Main settings
-		    if(localStorage.getItem("customFonts") == null){
+			if(localStorage.getItem("customFonts") == null){
 				customFonts = 0;
 			} else {
 				customFonts = Number(localStorage.getItem("customFonts"));
 			}
-	
+
 			for (var i = 0; i < customFonts; i++) {
 				font_number = i + 1;
 				$('#custom-font-list ul').append('<li><div class="font-name-added slot-storable" id="font-name-added-' + font_number + '"></div><div class="font-url-added slot-storable" id="font-url-added-' + font_number + '"></div><div class="delete-font"><div class="icon icon-trash"></div></div></li>');
@@ -1008,7 +1014,7 @@
 					//When the Main Switch is ON the lower thirds can be Active, Inactive or OFF.
 					//Switch 1
 					if (document.getElementById("lower-thirds-switch1").checked){
-						if (alt_1_active_time_monitor >= 0 && alt_1_inactive_time_monitor == 0 && alt_1_name && alt_1_info){
+						if (alt_1_active_time_monitor >= 0 && alt_1_inactive_time_monitor == 0 && alt_1_name){
 							document.getElementById("alt-1-config-content").classList.remove("inactive");
 							document.getElementById("alt-1-config-content").classList.add("active");
 							alt_1_jumpnext = true;
@@ -2912,13 +2918,13 @@
 				});
 
 				$('.checkbox-storable, .radio-storable').each(function(){
-                    var id = $(this).attr('id');
+                    			var id = $(this).attr('id');
 					var value = localStorage.getItem(id);
 
 					if (value) {
 						$(this).prop('checked', localStorage.getItem(id) === 'true');
 					}
-                });
+                		});
 
 				$('.title-storable').each(function(){    
 					var id = $(this).attr('id');
@@ -2937,14 +2943,14 @@
 					okResetPopup();
 				}
 
-	        	$('.storable').change(function(){
+	        		$('.storable').change(function(){
 					refreshData();
 					var id = $(this).attr('id');
 					var value = $(this).val();
 					localStorage.setItem(id, value);
-	        	});
+	        		});
 
-	        	// Update while input (text or number) is changed
+	        		// Update while input (text or number) is changed
 				$(':input[type=text], :input[type=number]').on('input',function(e){
 					refreshData();
 					var id = $(this).attr('id');
@@ -2952,19 +2958,19 @@
 					localStorage.setItem(id, value);
 				});
 
-	        	$('.logo-storable').change(function(){
+	        		$('.logo-storable').change(function(){
 					refreshData();
 					var id = $(this).attr('id');
 					var value = $(this).attr('src');
 					localStorage.setItem(id, value);              
-	        	});
+	        		});
 
-	        	$('.slot-storable, .title-storable').change(function(){
+	        		$('.slot-storable, .title-storable').change(function(){
 					refreshData();
 					var id = $(this).attr('id');
 					var value = $(this).text();
 					localStorage.setItem(id, value);
-	        	});
+	        		});
 
 				$('.checkbox-storable').change(function(){
 					refreshData();
@@ -3006,7 +3012,7 @@
 					// Lanza evento de cambio de los divs hermanos
 					$(this).siblings('.slot-storable').change();
 				});
-			}
+			} // savedata
 
 			function refreshData() {
 				console.log('refreshData');
