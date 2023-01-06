@@ -12,15 +12,23 @@
   <body class="browser-source lower-thirds">
     <script type="text/javascript">
 
+      //do we want to show a specific slot
+      const slot = getUrlParameter('slot');
+
+      const prefix = getUrlParameter('prefix');
+      if (!"prefix" in window) {
+        prefix = "";
+      }
+
       const mode = getUrlParameter('mode');
       //Check mode and change de channel to receive switches orders or preview orders
       if (mode == "preview") {
         document.body.classList.add('preview');
       }
 
-      const bcp = new BroadcastChannel('obs-lower-thirds-channel'); //Receives from the source
-      const bcr = new BroadcastChannel('obs-lower-thirds-channel2'); //Send to Control Panel
-      const bcf = new BroadcastChannel('obs-lower-thirds-fonts');
+      const bcp = new BroadcastChannel(`${prefix}-obs-lower-thirds-channel`); //Receives from the source
+      const bcr = new BroadcastChannel(`${prefix}-obs-lower-thirds-channel2`); //Send to Control Panel
+      const bcf = new BroadcastChannel(`${prefix}-obs-lower-thirds-fonts`);
 
       var l3Array = [];
 
@@ -369,7 +377,7 @@
 
       const x = 1; // Refresh time multiplier
       setInterval(refreshData, x * 1000, l3Array);
-      bcr.postMessage({resend: true});
+      bcr.postMessage({resend: true, slot: slot});
     </script>
   </body>
 </html>
